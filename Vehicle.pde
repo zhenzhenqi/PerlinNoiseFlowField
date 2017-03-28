@@ -2,7 +2,7 @@ class Vehicle {
   PVector position;
   PVector velocity;
   PVector acceleration;
-  PVector[][] field;
+  FlowField field;
   float force;
 
   Vehicle() {
@@ -25,14 +25,14 @@ class Vehicle {
     acceleration.add(force);
   }
 
-  void getFlowField(PVector[][] _field) {
+  void getFlowField(FlowField _field) {
     field = _field;
   }
 
   void follow() {
     int x = floor(position.x / 10);
     int y = floor(position.y / 10);
-    force = field.noiseField[x][y];
-    applyForce(force);
+    //force = field.noiseField[x][y];
+    //applyForce(force);
   }
 }

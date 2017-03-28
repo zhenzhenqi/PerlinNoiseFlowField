@@ -1,5 +1,5 @@
 class FlowField {
-  PVector[][] noiseField;
+  float[] noiseField;
   int cols, rows;
   int scl; 
   
@@ -10,7 +10,7 @@ class FlowField {
     scl = 10;
     cols = floor(width/scl);
     rows = floor(height/scl);
-    noiseField = new PVector[cols][rows]; 
+    noiseField = new float[rows*cols]; 
   }
   
   void display(){ 
@@ -19,7 +19,7 @@ class FlowField {
       float yoff = 0;
       for (int j = 0; j < rows; j++) {
         float theta = map(noise(xoff, yoff, zoff), 0, 1, 0, TWO_PI);
-        noiseField[i][j] = new PVector(cos(theta), sin(theta));
+        noiseField[i*cols+j] = theta;
         stroke(0);
         pushMatrix();
         translate(i*scl, j*scl);
