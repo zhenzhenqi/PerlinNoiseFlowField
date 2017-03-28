@@ -9,6 +9,7 @@ class Vehicle {
     position = new PVector(random(width), random(height)); 
     velocity = PVector.random2D();
     acceleration = new PVector(0, 0);
+    force = 0;
   }
 
   void update() {
@@ -18,6 +19,7 @@ class Vehicle {
   }
 
   void display() {
+    fill(255);
     ellipse(position.x, position.y, 1, 1);
   }
 
@@ -32,7 +34,7 @@ class Vehicle {
   void follow() {
     int x = floor(position.x / 10);
     int y = floor(position.y / 10);
-    //force = field.noiseField[x][y];
-    //applyForce(force);
+    force = field.noiseField[x*field.rows+y];
+    //applyForce(cos(force), sin(force));
   }
 }

@@ -15,11 +15,11 @@ class FlowField {
   
   void display(){ 
     float xoff = 0;
-    for (int i = 0; i < rows; i++) {
+    for (int i = 0; i < cols; i++) {
       float yoff = 0;
-      for (int j = 0; j < cols; j++) {
+      for (int j = 0; j < rows; j++) {
         float theta = map(noise(xoff, yoff, zoff), 0, 1, 0, TWO_PI);
-        noiseField[i*cols+j] = theta;
+        noiseField[i*rows+j] = theta;
         stroke(0);
         pushMatrix();
         translate(i*scl, j*scl);
