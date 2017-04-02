@@ -1,36 +1,41 @@
 class FlowField {
-  float[] noiseField;
-  int cols, rows;
-  int scl; 
-  
-  float inc = 0.1;
-  float zoff = 0;
 
-  FlowField() {
-    scl = 10;
-    cols = floor(width/scl);
-    rows = floor(height/scl);
-    noiseField = new float[rows*cols]; 
+  PVector[][] field;
+  int cols, rows;
+  int resolution;
+
+  FlowField(int r) {
+    resolution = r;
+
+    cols = width/resolution;
+    rows = height/resolution;
+    field = new PVector[cols][rows];
   }
-  
-  void display(){ 
+
+  void display() {
+    //    float zoff = 0;
     float xoff = 0;
     for (int i = 0; i < cols; i++) {
       float yoff = 0;
       for (int j = 0; j < rows; j++) {
-        float theta = map(noise(xoff, yoff, zoff), 0, 1, 0, TWO_PI);
-        noiseField[i*rows+j] = theta;
-        stroke(0);
+        float theta = map(noise(xoff, yoff), 0, 1, 0, TWO_PI);
+        field[i][j] = new PVector(cos(theta), sin(theta));
+        yoff += 0.1;
         pushMatrix();
-        translate(i*scl, j*scl);
+        translate(j, i);
+        //line(0, 0, resolution, 0);
         rotate(theta);
-        line(0, 0, scl, 0);
         popMatrix();
-        yoff += inc;
       }
-      xoff += inc;
+      xoff += 0.1;
     }
-    zoff += inc*0.1;
+    //    zoff += 0.01;
   }
-  
+
+  PVector lookup(PVector lookup) {
+    int column = int(constrain(lookup.x/resolution, 0, cols-1));
+    int row = int(constrain(lookup.y/resolution, 0, rows-1));
+    return field[column][row].get();
+  }
 }
+
